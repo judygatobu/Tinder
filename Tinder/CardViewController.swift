@@ -10,114 +10,22 @@ import UIKit
 
 class CardViewController: UIViewController {
 
-    var initialCardPos: CGPoint?
-    
-    var newCard: UIImageView?
-    
-    var rotation:CGFloat = 0
     
     @IBOutlet weak var CardView: UIImageView!
-    var cardviewimage: UIImage?
-   
+    var cardviewimage: UIImage!
     
-    func panCard(sender: UIPanGestureRecognizer) {
-        
-        var Card = sender.view as! UIImageView
-        
-        let bounds = UIScreen.main.bounds
-        let screenWidth = bounds.width
-        
-        var translate = sender.translation(in: view)
-        
-        print("translate x \(translate.x)")
-        
-        switch sender.state{
-            
-        case .began:
-            newCard = UIImageView(frame: Card.frame)
-            newCard!.image = Card.image
-           
-            
-            
-            initialCardPos = Card.center
-            view.addSubview(newCard!)
-            newCard!.center = initialCardPos!
-            newCard!.image! = newCard!.image!.stretchableImage(withLeftCapWidth: CardView.image!.leftCapWidth, topCapHeight: CardView.image!.topCapHeight)
-            
-        case .changed:
-            rotation = rotation + 0.1
-            newCard!.center = CGPoint(x: initialCardPos!.x + translate.x, y: initialCardPos!.y + translate.y - 0.1)
-            newCard!.transform = CGAffineTransform(rotationAngle: rotation)
-            
-        case .ended:
-            if (translate.x > 50)
-            {
-                let offscreen = screenWidth - self.newCard!.center.x
-                
-                UIView.animate(withDuration: 1) {
-                    self.newCard!.center = CGPoint(x: offscreen, y: self.newCard!.center.y)
-                    
-                }
-                
-                newCard!.removeFromSuperview()
-                
-            }
-            else if (translate.x < -50){
-                UIView.animate(withDuration: 0.5) {
-                    self.newCard!.center = CGPoint(x: self.newCard!.center.x - screenWidth, y: self.newCard!.center.y)
-                    
-                }
-                
-                newCard!.removeFromSuperview()
-            }
-            else {
-                UIView.animate(withDuration: 0.4) {
-                    self.newCard?.transform = CGAffineTransform.identity
-                    self.newCard?.center = CGPoint(x: self.initialCardPos!.x, y: self.initialCardPos!.y)
-                }
-                
-                newCard!.removeFromSuperview()
-            }
-            
-            
-        default:
-            return
-        }
-    }
+
+    var divisor: CGFloat!
+    var cardInitialCenter: CGPoint!
     
-    func touchCard(sender: UITapGestureRecognizer){
-        print("cardview image \(String(describing: CardView.image))")
-        performSegue(withIdentifier: "Info", sender: self)
-        
-        
-        
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let detail = segue.destination as! ProfileeeViewController
-        if let card = cardviewimage{
-            
-            print("cardview image \(card)")
-            detail.profileCardImage = card
-            
-        }
-        
-    }
+    var fadeTransition: FadeTransition!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panCard(sender:)))
-        CardView.addGestureRecognizer(panGesture)
-        CardView.isUserInteractionEnabled = true
-        let g = UITapGestureRecognizer(target: self, action: #selector(touchCard(sender:)))
-        CardView.addGestureRecognizer(g)
-        cardviewimage = CardView.image
-        
-        
-        
-        
+        // Do any additional setup after loading the view.
+        divisor = (view.frame.width / 2) / 0.61
+        cardInitialCenter = CardView.center
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,5 +33,58 @@ class CardViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func didPan(_ sender: UIPanGestureRecognizer) {
+        let imageView = sender.view as! UIImageView
+        let translation = sender.translation(in: view)
+        let location = sender.location(in: view)
+        let xFromCenter = imageView.center.x - view.center.x
+        
+        imageView.center = CGPoint(x: cardInitialCenter.x + translation.x, y: cardInitialCenter.y)
+        
+        if location.y < cardInitialCenter.y {
+            imageView.transform = CGAffineTransform(rotationAngle: xFromCenter / divisor)
+        } else {
+            imageView.transform = CGAffineTransform(rotationAngle: xFromCenter / -divisor)
+        }
+        
+        if sender.state == .began {
+            print("Started pan")
+        } else if sender.state == .changed{
+            
+        } else if sender.state == .ended {
+            if imageView.center.x < cardInitialCenter.x - 50 {
+                //animate to the right
+                UIView.animate(withDuration: 0.3, animations: {
+                    imageView.center = CGPoint(x: imageView.center.x - 500, y: imageView.center.y)
+                    imageView.alpha = 0
+                })
+            } else if imageView.center.x > cardInitialCenter.x + 50 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    imageView.center = CGPoint(x: imageView.center.x + 500, y: imageView.center.y)
+                    imageView.alpha = 0
+                })
+            } else {
+                imageView.center = cardInitialCenter
+                imageView.transform = CGAffineTransform.identity
+            }
+        }
+        
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let dest = segue.destination as? ProfileeeViewController {
+            dest.modalPresentationStyle = UIModalPresentationStyle.custom
+            fadeTransition = FadeTransition()
+            dest.transitioningDelegate = fadeTransition
+            fadeTransition.duration = 1.0
+            dest.cardImageHolder = CardView.image
+        }
+    }
+    
+    @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+        performSegue(withIdentifier: "ProfileSegue", sender: nil)
+}
+
 }

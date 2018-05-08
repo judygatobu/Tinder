@@ -13,17 +13,14 @@ class ProfileeeViewController: UIViewController {
     
     @IBOutlet weak var cardImage: UIImageView!
     
-   
-    var profileCardImage: UIImage?
+    var cardImageHolder: UIImage!
+    var fadeTransition: FadeTransition!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let card = profileCardImage{
-            cardImage.image = card
-            
-        }
-        
-        // Do any additional setup after loading the view.
+
+     cardImage.image = cardImageHolder
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,7 +28,21 @@ class ProfileeeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let dest = segue.destination as? CardViewController {
+            dest.modalPresentationStyle = UIModalPresentationStyle.custom
+            fadeTransition = FadeTransition()
+            dest.transitioningDelegate = fadeTransition
+            fadeTransition.duration = 1.0
+        }
+    }
+    
+    @IBAction func didTapHome(_ sender: UITapGestureRecognizer) {
+        performSegue(withIdentifier: "ProfileSegue", sender: nil)
+    }
+}
 
     
     
-}
+

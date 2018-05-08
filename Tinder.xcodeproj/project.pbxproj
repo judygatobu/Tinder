@@ -14,6 +14,8 @@
 		DC017A56208EE013000F3474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC017A54208EE013000F3474 /* LaunchScreen.storyboard */; };
 		DC017A61208EE013000F3474 /* TinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC017A60208EE013000F3474 /* TinderTests.swift */; };
 		DC017A6C208EE013000F3474 /* TinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC017A6B208EE013000F3474 /* TinderUITests.swift */; };
+		DC156F3220A14E1300CB6263 /* BaseTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC156F3120A14E1300CB6263 /* BaseTransition.swift */; };
+		DC156F3420A14E8600CB6263 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC156F3320A14E8600CB6263 /* FadeTransition.swift */; };
 		DCFEC001209A4D24008F8105 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFEC000209A4D24008F8105 /* CardViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,8 @@
 		DC017A67208EE013000F3474 /* TinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC017A6B208EE013000F3474 /* TinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderUITests.swift; sourceTree = "<group>"; };
 		DC017A6D208EE013000F3474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC156F3120A14E1300CB6263 /* BaseTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTransition.swift; sourceTree = "<group>"; };
+		DC156F3320A14E8600CB6263 /* FadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
 		DCFEC000209A4D24008F8105 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +110,8 @@
 				DC017A57208EE013000F3474 /* Info.plist */,
 				DCFEC000209A4D24008F8105 /* CardViewController.swift */,
 				DC01756B209AC6D8006DF6E4 /* ProfileeeViewController.swift */,
+				DC156F3120A14E1300CB6263 /* BaseTransition.swift */,
+				DC156F3320A14E8600CB6263 /* FadeTransition.swift */,
 			);
 			path = Tinder;
 			sourceTree = "<group>";
@@ -263,6 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCFEC001209A4D24008F8105 /* CardViewController.swift in Sources */,
+				DC156F3420A14E8600CB6263 /* FadeTransition.swift in Sources */,
+				DC156F3220A14E1300CB6263 /* BaseTransition.swift in Sources */,
 				DC01756C209AC6D8006DF6E4 /* ProfileeeViewController.swift in Sources */,
 				DC017A4C208EE013000F3474 /* AppDelegate.swift in Sources */,
 			);

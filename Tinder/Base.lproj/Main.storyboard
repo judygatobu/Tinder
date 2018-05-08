@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="nav_bar" translatesAutoresizingMaskIntoConstraints="NO" id="HsP-OS-pBd">
-                                <rect key="frame" x="0.0" y="20" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="action_buttons" translatesAutoresizingMaskIntoConstraints="NO" id="AIt-wL-99h">
@@ -30,20 +30,39 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="ryan" translatesAutoresizingMaskIntoConstraints="NO" id="NZE-XR-5Ya">
-                                <rect key="frame" x="0.0" y="108" width="375" height="376"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="376"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="ryan" translatesAutoresizingMaskIntoConstraints="NO" id="qTA-JI-Ffh">
+                                <rect key="frame" x="0.0" y="88" width="367" height="384"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="wv0-2x-Nbt" appends="YES" id="1ta-jR-1vL"/>
+                            <outletCollection property="gestureRecognizers" destination="h5p-Jr-pwh" appends="YES" id="Nlp-tL-Fnm"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="CardView" destination="NZE-XR-5Ya" id="DyL-nE-5eM"/>
-                        <segue destination="hdu-eZ-mRz" kind="showDetail" identifier="Info" id="05G-GW-WFD"/>
+                        <segue destination="hdu-eZ-mRz" kind="showDetail" identifier="ProfileSegue" id="05G-GW-WFD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zpQ-w4-f2x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="wv0-2x-Nbt">
+                    <connections>
+                        <action selector="didPan:" destination="Uf4-hO-kr0" id="nNc-lN-vte"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer id="h5p-Jr-pwh">
+                    <connections>
+                        <action selector="didTap:" destination="Uf4-hO-kr0" id="ZM2-Oy-3sZ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-15" y="161"/>
+            <point key="canvasLocation" x="328.80000000000001" y="160.56971514242881"/>
         </scene>
         <!--Profileee View Controller-->
         <scene sceneID="cBz-ZN-urm">
@@ -66,19 +85,31 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LHv-lN-6HN">
-                                <rect key="frame" x="2" y="109" width="375" height="398"/>
+                                <rect key="frame" x="2" y="109" width="369" height="392"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Xk1-4i-jM5" appends="YES" id="5yP-lK-Szz"/>
+                            <outletCollection property="gestureRecognizers" destination="zqq-rU-r1J" appends="YES" id="F2P-y3-pQI"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="cardImage" destination="LHv-lN-6HN" id="U7d-6d-cbf"/>
+                        <segue destination="Uf4-hO-kr0" kind="showDetail" identifier="ProfileSegue" id="XEr-ni-0RM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eA2-h0-cEj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Xk1-4i-jM5">
+                    <connections>
+                        <action selector="didTapHome:" destination="hdu-eZ-mRz" id="SlH-7n-MEi"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="zqq-rU-r1J"/>
             </objects>
-            <point key="canvasLocation" x="1161" y="161"/>
+            <point key="canvasLocation" x="1421.5999999999999" y="188.45577211394306"/>
         </scene>
     </scenes>
     <resources>
